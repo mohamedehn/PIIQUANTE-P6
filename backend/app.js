@@ -10,3 +10,4 @@ app.use ((req, res, next)=>{ // Middleware : Afin de répondre à la requête qu
     res.json({message : 'Votre requête a bien été reçu'})
     next() // Next permet de terminer la requête et passé au middleware suivant 
 })
+

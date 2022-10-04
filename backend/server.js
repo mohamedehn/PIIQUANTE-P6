@@ -7,6 +7,7 @@ const server = http.createServer(app); // appelle de la fonction app, pour appel
 
 server.listen(process.env.PORT || 3000); // permet d'écouter (déployer) le serveur surle port 300
 
+/*
 // Utilisation de mongoose (Mongo DB) sur le projet
 
 const mongoose = require ('mongoose')
@@ -20,3 +21,5 @@ mongoose.connect('mongodb://localhost/blog', function(err) {
 // Permet de se déconnecter de MongoDB
 
 mongoose.connection.close();
+
+*/

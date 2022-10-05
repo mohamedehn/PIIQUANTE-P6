@@ -8,12 +8,6 @@ app.use(express.json()); // permet de gérer la requête POST venant de l'applic
 
 module.exports = app; // permet d'accéder à l'application depuis nos autres fichiers du projet (notamment le server)
 
-/*app.use ((req, res, next)=>{ // Middleware : Afin de répondre à la requête qui émise par le serveur vers l'application. Permet de récupérer un objet au format JSON. Sans cette réponse, POSTMAN nous renvoi une erreur 404 lors de la requête GET
-    res.json({message : 'Votre requête a bien été reçu'})
-    next() // Next permet de terminer la requête et passé au middleware suivant 
-})
-*/
-
 //Utilisation d'une base de données MongoDB grâce à Mongoose -- connexion à la DB
 const mongoose = require('mongoose');
 
@@ -32,43 +26,8 @@ app.use((req, res, next) => {
     next();
   });
 
-//------ Ci-dessous nous aurons les routes pour la création de compte-----
-//Express prend toutes les requêtes qui ont comme Content-Type  application/json  et met à disposition leur  body  directement sur l'objet req
-app.post('/api/auth/signup', (req, res, next) => {
-    console.log(req.body);
-    res.status(201).json({
-        message: 'Objet créé !'
-    });
-  });
+// On enregistre le routeur dans notre fichier app.js
+const stuffRoutes = require('./routes/stuff');
 
-//Dans ce middleware, nous créons un groupe d'articles avec le schéma de données spécifique requis par le front-end. Nous envoyons ensuite ces articles sous la forme de données JSON, avec un code 200 pour une demande réussie.
-app.get('/api/auth/signup', (req, res, next) => {
-    const signup = [
-      {
-        email: '',
-        password: '',
-      },
-    ];
-    res.status(200).json(signup);
-    next()
-  });
-
-//------ Ci-dessous nous aurons les routes pour la connexion-----
-app.post('/api/auth/login', (req, res, next) => {
-    console.log(req.body);
-    res.status(201).json({
-        userId: '',
-        token: ''
-    });
-});
-
-app.get('/api/auth/login', (req, res, next) => {
-    const login = [
-      {
-        email: '',
-        password: '',
-      },
-    ];
-    res.status(200).json(login);
-    next()
-  });
+//On enregistre ensuite le routeur pour toutes les demandes effectués vers l'api
+app.use('/api/sauces', stuffRoutes);

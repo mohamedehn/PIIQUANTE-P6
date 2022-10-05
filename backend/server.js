@@ -11,7 +11,6 @@ server.listen(process.env.PORT || 3000); // permet d'écouter (déployer) le ser
 // Utilisation de mongoose (Mongo DB) sur le projet
 
 const mongoose = require ('mongoose')
-
 // Nous précisons sur quel DB nous allons travailler
 
 mongoose.connect('mongodb://localhost/blog', function(err) {
@@ -19,7 +18,6 @@ mongoose.connect('mongodb://localhost/blog', function(err) {
 });
 
 // Permet de se déconnecter de MongoDB
-
 mongoose.connection.close();
 
 */

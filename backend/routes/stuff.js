@@ -2,6 +2,18 @@
 const express = require('express');
 const router = express.Router();
 
+//Pour réimplémenter cela dans notre route, nous devons importer notre contrôleur puis enregistrer chaque fonction
+const stuffCtrl = require('../controllers/stuff');
+
+router.get('/', stuffCtrl.getAllStuff);
+router.post('/', stuffCtrl.createThing);
+router.get('/:id', stuffCtrl.getOneThing);
+router.put('/:id', stuffCtrl.modifyThing);
+router.delete('/:id', stuffCtrl.deleteThing);
+
+module.exports = router;
+
+/*
 //------ Ci-dessous nous aurons les routes pour la création/modifcations/supprimer de nouvelles sauces-----
 //Express prend toutes les requêtes qui ont comme Content-Type  application/json  et met à disposition leur  body  directement sur l'objet req
 router.post('/', stuffCtrl.createThing);
@@ -17,14 +29,6 @@ router.put('/:id', stuffCtrl.modifyThing);
   
 // Ci-dessous le endpoint DELETE qui va permettre de supprimer une sauce avec l'id fourni
 router.delete('/:id', stuffCtrl.deleteThing);  
+*/
 
-//Pour réimplémenter cela dans notre route, nous devons importer notre contrôleur puis enregistrer chaque fonction
-const stuffCtrl = require('../controllers/stuff');
 
-router.get('/', stuffCtrl.getAllStuff);
-router.post('/', stuffCtrl.createThing);
-router.get('/:id', stuffCtrl.getOneThing);
-router.put('/:id', stuffCtrl.modifyThing);
-router.delete('/:id', stuffCtrl.deleteThing);
-
-module.exports = router;

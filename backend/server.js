@@ -7,6 +7,13 @@ const server = http.createServer(app); // appelle de la fonction app, pour appel
 
 server.listen(process.env.PORT || 3000); // permet d'écouter (déployer) le serveur surle port 300
 
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  next();
+});
+
 /*
 // Utilisation de mongoose (Mongo DB) sur le projet
 

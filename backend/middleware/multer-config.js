@@ -1,3 +1,4 @@
+// Ici le fichier multer va nous permettre d'accepter les fichiers entrant.
 const multer = require('multer');
 
 const MIME_TYPES = {

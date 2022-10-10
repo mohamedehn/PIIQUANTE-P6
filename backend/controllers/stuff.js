@@ -3,12 +3,24 @@ const thing = require('../models/thing');
 
 //Ici, nous exposons la logique de notre route POST en tant que fonction appelée createThing()
 exports.createThing = (req, res, next) => {
-    const thing = new thing({
-      ...req.body // permet de récupérer toutes les informations du body de la requête
+    const {name, manufacturer, description, mainPepper, heat} = JSON.parse(req.body.sauce); //affectation automatique
+    const newThing = new thing({
+      userId : req.auth.userId,
+      name : name,
+      manufacturer : manufacturer,
+      description : description,
+      mainPepper : mainPepper,
+      imageUrl : req.protocol+'://'+req.get('host')+'/backend/images/'+req.file.filename, // permet de récupérer le chemin de l'image enregistrer dans le dossier grâce à multer
+      heat : heat,
+      likes : 0,
+      dislikes : 0,
+      usersLiked : [],
+      usersDisliked : [],
+      //...req.body // permet de récupérer toutes les informations du body de la requête
     })
-    thing.save()
+    newThing.save() 
       .then(()=> res.status(201).json({message : 'Objet crée !'})) //requête réussi
-      .catch(error => res.status(400).json({error})) //erreur si problème
+      .catch(error => res.status(400).json({error : 'Mauvaise requête'})) //erreur si problème
 };
 
 //Dans ce middleware, nous implémentons notre route get afin de récupérer tout les "thing" depuis la base de données. Find permet de renvoyer un tableau

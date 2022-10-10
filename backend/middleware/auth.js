@@ -1,3 +1,4 @@
+//middleware qui va vérifier que l’utilisateur est bien connecté et transmettre les informations de connexion aux différentes méthodes qui vont gérer les requêtes
 const jwt = require('jsonwebtoken');
  
 module.exports = (req, res, next) => {

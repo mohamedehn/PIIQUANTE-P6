@@ -12,8 +12,8 @@ const thingSchema = mongoose.Schema({
     heat : {type : Number, required : true},
     likes : {type : Number, required : true},
     dislikes : {type : Number, required : true},
-    usersLiked : {type : ["String <userId>"], required : true},
-    usersDisliked : {type : ["String <userId>"], required : true},
+    usersLiked : {type : Array, required : true},
+    usersDisliked : {type : Array, required : true},
 });
 
 //on exporte le model correspondant afin de les utiliser et interagir avec la base de données

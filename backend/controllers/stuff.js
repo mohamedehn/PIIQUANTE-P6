@@ -44,24 +44,25 @@ exports.getOneThing = (req, res, next) => {
 // Ci-dessous le endpoint PUT qui va permettre de modifier une sauce avec l'id fourni (d'ou le updateOne avec l'id passé en paramètre)
 // on crée un objet thingObject qui regarde si req.file existe ou non. S'il existe, on traite la nouvelle image ; s'il n'existe pas, on traite simplement l'objet entrant.
 exports.modifyThing = (req, res, next) => {
-  const thingObject = req.file ? {
-    ...JSON.parse(req.body.thing),
-    imageUrl: req.protocol+'://'+req.get('host')+'/backend/images/'+req.file.filename,
-} : { ...req.body };
-  delete thingObject._userId;
-  thing.findOne({_id: req.params.id})
-    .then((thing) => {
-        if (thing.userId != req.auth.userId) {
-            res.status(401).json({ message : 'Not authorized'});
-        } else {
-            thing.updateOne({ _id: req.params.id}, { ...thingObject, _id: req.params.id})
-            .then(() => res.status(200).json({message : 'Objet modifié!'}))
-            .catch(error => res.status(401).json({ error }));
-        }
-    })
-    .catch((error) => {
-        res.status(400).json({ error });
-    });
+    const thingObject = req.file ? {
+        ...JSON.parse(req.body.sauce),
+        imageUrl: req.protocol+'://'+req.get('host')+'/backend/images/'+req.file.filename,
+    } : { ...req.body };
+  
+    delete thingObject._userId;
+    thing.findOne({_id: req.params.id})
+        .then((sauce) => {
+            if (sauce.userId != req.auth.userId) {
+                res.status(401).json({ message : 'Not authorized'});
+            } else {
+                thing.updateOne({ _id: req.params.id}, { ...thingObject, _id: req.params.id})
+                .then(() => res.status(200).json({message : 'Objet modifié!'}))
+                .catch(error => res.status(401).json({ error }));
+            }
+        })
+        .catch((error) => {
+            res.status(400).json({ error });
+        });
 }
 
 // Ci-dessous le endpoint DELETE qui va permettre de supprimer une sauce avec l'id fourni

@@ -35,4 +35,8 @@ const userRoutes = require('./routes/user');
 app.use('/api/sauces', stuffRoutes);
 app.use('/api/auth', userRoutes);
 
+// Ajout de Helmet afin d'améliorer la sécurité contre les vulnérabilités connues (configure des en-têtes http de manière approrié)
+const helmet = require("helmet");
+app.use(helmet());
+
 module.exports = app; // permet d'accéder à l'application depuis nos autres fichiers du projet (notamment le server)

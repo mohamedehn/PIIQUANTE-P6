@@ -48,7 +48,6 @@ exports.modifyThing = (req, res, next) => {
         ...JSON.parse(req.body.sauce),
         imageUrl: req.protocol+'://'+req.get('host')+'/backend/images/'+req.file.filename,
     } : { ...req.body };
-  
     delete thingObject._userId;
     thing.findOne({_id: req.params.id})
         .then((sauce) => {

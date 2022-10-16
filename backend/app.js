@@ -1,4 +1,8 @@
 // On place dans ce fichier notre application Express
+
+// On importe les données du fichier dotenv
+require('dotenv').config();
+
 const express = require('express'); // on importe Express 
 
 const path = require('path');
@@ -18,7 +22,7 @@ app.use((req, res, next) => {
 //Utilisation d'une base de données MongoDB grâce à Mongoose -- connexion à la DB
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://mohamedEhn:8866482@cluster0.udgsupb.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect(process.env.DB_URI,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))

@@ -1,3 +1,6 @@
+// On importe les données du fichier dotenv
+require('dotenv').config();
+
 // on importe le package de bcrypt
 const bcrypt = require('bcrypt')
 
@@ -37,7 +40,7 @@ exports.login = (req, res, next) => {
                         userId: user._id,
                         token: jwt.sign(
                             { userId: user._id },
-                            'RANDOM_TOKEN_SECRET', // Modifier le code secret
+                            process.env.TOKEN, // Modifier le code secret
                             { expiresIn: '24h' }
                         )
                     });

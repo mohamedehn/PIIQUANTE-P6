@@ -1,5 +1,7 @@
 //Création d'un schéma de données avec toutes les informations dont nos objets auront besoin
 const mongoose = require('mongoose');
+const mongodbErrorHandler = require('mongoose-mongodb-errors');
+
 
 // On indique ici le type de données et leur carctère (obligatoire ou non)
 const thingSchema = mongoose.Schema({
@@ -15,6 +17,8 @@ const thingSchema = mongoose.Schema({
     usersLiked : {type : Array, required : true},
     usersDisliked : {type : Array, required : true},
 });
+
+thingSchema.plugin(mongodbErrorHandler); // permet de mieux formater/interpréter les erreurs au niveau de la BD
 
 //on exporte le model correspondant afin de les utiliser et interagir avec la base de données
 module.exports = mongoose.model('thing', thingSchema)

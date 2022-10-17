@@ -1,5 +1,6 @@
 //Création d'un schéma de données avec toutes les informations dont nos objets auront besoin
 const mongoose = require('mongoose');
+const mongodbErrorHandler = require('mongoose-mongodb-errors');
 
 // installation d'un plugin afin de s'assurer que chaque utilisateur ai une adresse mail unique 
 const uniqueValidator = require('mongoose-unique-validator');
@@ -12,6 +13,8 @@ const userSchema = mongoose.Schema({
 
 // permet d'utiliser le plugin validator de mongoose
 userSchema.plugin(uniqueValidator);
+
+userSchema.plugin(mongodbErrorHandler);
 
 //on exporte le model correspondant afin de les utiliser et interagir avec la base de données
 module.exports = mongoose.model('user', userSchema)

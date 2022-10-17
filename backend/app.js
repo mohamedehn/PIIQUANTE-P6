@@ -39,7 +39,7 @@ const userRoutes = require('./routes/user');
 app.use('/api/sauces', stuffRoutes);
 app.use('/api/auth', userRoutes);
 
-// Ajout de Helmet afin d'améliorer la sécurité contre les vulnérabilités connues (configure des en-têtes http de manière approrié)
+// Ajout de Helmet afin d'améliorer la sécurité contre les vulnérabilités connues (configure des en-têtes http de manière approrié - attaque XSS)
 const helmet = require("helmet");
 app.use(helmet());
 

@@ -48,12 +48,16 @@ exports.modifyThing = (req, res, next) => {
         ...JSON.parse(req.body.sauce),
         imageUrl: req.protocol+'://'+req.get('host')+'/backend/images/'+req.file.filename,
     } : { ...req.body };
-    delete thingObject._userId;
+    
     thing.findOne({_id: req.params.id})
         .then((sauce) => {
-            if (sauce.userId != req.auth.userId) {
+            if (sauce.userId != req.auth.userId) { // Permet de vérifier si c'est le propriétaire de la sauce qui effectue la mise à jour
                 res.status(401).json({ message : 'Not authorized'});
             } else {
+                if (req.file){
+                    const filename = sauce.imageUrl.split('/images/')[1];
+                    fs.unlink(`images/${filename}`, () => {}); // unlink permet de supprimer le fichier de la DB
+                }
                 thing.updateOne({ _id: req.params.id}, { ...thingObject, _id: req.params.id})
                 .then(() => res.status(200).json({message : 'Objet modifié!'}))
                 .catch(error => res.status(401).json({ error }));

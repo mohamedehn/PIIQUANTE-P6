@@ -1,4 +1,4 @@
-// On place dans ce fichier notre application Express
+// On place dans ce fichier notre application Express et dans lequel nous allons centraliser toutes les informations
 
 // On importe les données du fichier dotenv
 require('dotenv').config();
@@ -21,10 +21,7 @@ app.use((req, res, next) => {
 
 //Utilisation d'une base de données MongoDB grâce à Mongoose -- connexion à la DB
 const mongoose = require('mongoose');
-
-mongoose.connect(process.env.DB_URI,
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
+mongoose.connect(process.env.DB_URI)
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
@@ -32,11 +29,11 @@ mongoose.connect(process.env.DB_URI,
 app.use('/backend/images/', express.static(path.join(__dirname,'images')))
 
 // On enregistre le routeur dans notre fichier app.js
-const stuffRoutes = require('./routes/stuff');
+const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
 //On enregistre ensuite le routeur pour toutes les demandes effectués vers l'api
-app.use('/api/sauces', stuffRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
 
 // Ajout de Helmet afin d'améliorer la sécurité contre les vulnérabilités connues (configure des en-têtes http de manière approrié - attaque XSS)
